@@ -1,4 +1,4 @@
-# Cutoff-final
+# L-BFGS-Cutoff-s2
 
 ## Introduction 
 This is the final version for the cutoff implementation of L-BFGS algorithm for minimizing energy on 3d sphere. It uses angle coordinate
