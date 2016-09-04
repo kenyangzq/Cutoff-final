@@ -1,5 +1,3 @@
-// TODO add multiprecision arithmetic with either https://gmplib.org/, or http://www.mpfr.org/
-// TODO use an autodifferentiation library like CppAD, http://www.coin-or.org/CppAD/
 //
 //
 #include <iomanip>
@@ -24,9 +22,10 @@ void openFile (ifstream & inputfile, string name){
     }
 }
 
-string ParseControlFile(ifstream & inputfile, int & dim, int &numpts, double & s, int & c, int & max_neighbor, int & numFile, int & numIteration){
+string ParseControlFile(ifstream & inputfile, int & dim, int &numpts, double & s, int & c, int & max_neighbor, int & numFile, int & numIteration, bool & infile){
     
-    bool infile = false;
+    
+    infile = false;
     string filename = "";
     
     string line;
@@ -44,7 +43,7 @@ string ParseControlFile(ifstream & inputfile, int & dim, int &numpts, double & s
             tmp >> k >> k >> c;
         }else if (lineNumber == 7) {
             tmp >> k >> k >> infile;
-        }else if (lineNumber == 8 && !infile) {
+        }else if (lineNumber == 8) {
             tmp >> k >> k >> numpts;
         }else if (lineNumber == 9) {
             tmp >> k >> k >> numIteration;
@@ -61,11 +60,12 @@ string ParseControlFile(ifstream & inputfile, int & dim, int &numpts, double & s
     cout << "Dimension: " << dim << "\n";
     cout << "C value: " << c << "\n";
     cout << "Infile request: " << infile << "\n";
-    if (!infile) cout << "Number of points: " << numpts << "\n";
+    cout << "Number of points: " << numpts << "\n";
     cout << "Number of iterations: " << numIteration << "\n";
     cout << "Number of output files: " << numFile << "\n";
     cout << "Max neighbor: " << max_neighbor << "\n";
-    cout << "Input filename: " << filename << "\n\n";
+    if (infile) cout << "Input filename: " << filename << "\n\n";
+    else cout << "No input file request; program will generate a random configuartion.\n\n";
     return filename;
 }
 
@@ -399,40 +399,86 @@ void minimizeEnergy::BuildIndex(const cppoptlib::Vector<double> & x){
 }
 
 
+// generate random sphere configuration
+void randptSphere(double coordinates[], int dim){
+    
+    double z;
+    double norm;
+    double normsq=2;
+    
+    while(normsq>1 || normsq==0){
+        normsq=0;
+        
+        for(int i=0;i<dim;i++){
+            z=1-(2*(double)rand()/(double)RAND_MAX);
+            normsq += z*z;
+            coordinates[i] = z;
+        }
+    }
+    
+    norm=sqrt(normsq);
+    
+    for(int i=0;i<dim;i++){
+        coordinates[i] = coordinates[i]/norm;
+    }
+    
+}
+
+
 
 /////////////////////////////////////////////////////////////////////////////////
 int main() {
     
     
     
-    
+    // declare all the parameter used.
     double s, radius;
     int dim = 0, numpts=0, c=0, cubes_per_side=0, max_neighbor=0, numFile=0, numIteration=0;
+    bool infile;
     ifstream inputfile, pointfile;
     ofstream outputfile;
 
     
     openFile(inputfile, "control.inp");
-    string filename = ParseControlFile(inputfile, dim, numpts, s, c, max_neighbor, numFile, numIteration);
+    string filename = ParseControlFile(inputfile, dim, numpts, s, c, max_neighbor, numFile, numIteration, infile);
+    inputfile.close();
     
     
     
     radius = c*pow(numpts,-1.0/(dim-1));
     cubes_per_side = ceil(2/radius);
     
-    inputfile.close();
-    openFile(pointfile, filename);
+    
+    
+    
     cppoptlib::Matrix<double> X(numpts, dim), A(numpts, dim-1);
     cppoptlib::Vector<double> V(A.size()), G(A.size()), GFull(A.size());
     
     // read points
-    int lineNumber = 0;
-    while (!pointfile.eof() && lineNumber < numpts)
+    if (infile)
     {
-        for (int i=0; i<3;  ++i) pointfile >> X(lineNumber, i);
-        lineNumber++;
+        openFile(pointfile, filename);
+        int lineNumber = 0;
+        while (!pointfile.eof() && lineNumber < numpts)
+        {
+            for (int i=0; i<3;  ++i) pointfile >> X(lineNumber, i);
+            lineNumber++;
+        }
+        pointfile.close();
     }
-    pointfile.close();
+    // generate random configuration
+    else
+    {
+        double apoint[3];
+        for (int i = 0; i < numpts; i++) {
+            for (int j = 0; j < dim; j++) {
+                randptSphere(apoint, dim);
+                X(i, j) = apoint[j];
+            }
+        }
+    }
+    
+    
 
     ToAngles(X,A);
     ToVector(A,V);
@@ -455,7 +501,7 @@ int main() {
     cout << "Energy now: " << f(V) << endl;
     cout << "Full energy now: " << Energy(V, s, dim-1) << endl;
     
-    // writeFile(outputfile, filename+"bfgs-cutoff.txt", V, dim);
+    writeFile(outputfile, "output.txt", V, dim);
     return 0;
 }
 
