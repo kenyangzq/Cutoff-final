@@ -22,7 +22,11 @@ the initial coordinates of the point configuration on 3d sphere. The name of it 
 are strictly required. The name has to be control.inp and an example of the format can be found in the folder. It is recommaned that you 
 download the control.inp and modify it based on your input.
 
-This implementation also allows to generate output files containing the coordinates. 
+The exact command to run the program is the same as any binary executable file: 
+    `./L-BFGS`
+By default, the output file generated will be named as output.txt. This implementation also allows to generate output files containing the coordinates. The number of files generated will be exactly the partitionnum. To obtain the outputs, create a folder name output under the L-BFGS-Cutoff-s2 directory. 
+
+Note: the outputs will be overwritten after each execution.
 
 ## Input file or random configuration
 In the control.inp file, there is an option of infile. 0 indicates no input file and 1 otherwise. When 0 is put, the inputfile should be exactly the inputfile name. When 1 is selected, the program will just ignore the inputfile line and generate a random configuration on 3d sphere.
