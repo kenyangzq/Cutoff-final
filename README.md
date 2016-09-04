@@ -24,3 +24,5 @@ download the control.inp and modify it based on your input.
 
 This implementation also allows to generate output files containing the coordinates. 
 
+## Input file or random configuration
+In the control.inp file, there is an option of infile. 0 indicates no input file and 1 otherwise. When 0 is put, the inputfile should be exactly the inputfile name. When 1 is selected, the program will just ignore the inputfile line and generate a random configuration on 3d sphere.
