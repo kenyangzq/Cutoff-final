@@ -180,7 +180,7 @@ class LbfgsSolver : public ISolver<T, 1> {
             
             
             if (iter % tmp == 0) {
-                std::string name = "./cutoff/" + filename + std::to_string(iter/tmp) + ".txt";
+                std::string name = "./output/output" + std::to_string(iter/tmp) + ".txt";
                 outputfile.open(name.c_str());
                 
                 printf("Energy: %f\n", objFunc.value(x0));
