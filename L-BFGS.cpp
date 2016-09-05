@@ -464,7 +464,6 @@ int main() {
             for (int i=0; i<3;  ++i) pointfile >> X(lineNumber, i);
             lineNumber++;
         }
-        cout << "Read file complete.\n";
         pointfile.close();
     }
     // generate random configuration
@@ -478,7 +477,6 @@ int main() {
                 cout << apoint[j] << endl;
             }
         }
-        cout << "Random configuration generated.\n";
     }
     
     
