@@ -464,6 +464,7 @@ int main() {
             for (int i=0; i<3;  ++i) pointfile >> X(lineNumber, i);
             lineNumber++;
         }
+        cout << "Read file complete.\n";
         pointfile.close();
     }
     // generate random configuration
@@ -471,12 +472,15 @@ int main() {
     {
         double apoint[3];
         for (int i = 0; i < numpts; i++) {
+            randptSphere(apoint, dim);
             for (int j = 0; j < dim; j++) {
-                randptSphere(apoint, dim);
                 X(i, j) = apoint[j];
+                cout << apoint[j] << endl;
             }
         }
+        cout << "Random configuration generated.\n";
     }
+    
     
     
 
