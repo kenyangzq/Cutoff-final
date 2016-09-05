@@ -7,6 +7,7 @@
 #include "meta.h"
 #include "problem.h"
 #include "lbfgssolver.h"
+#include <cstdlib>
 
 #define THREADNUM 2
 #define PI 3.1415926
@@ -469,12 +470,12 @@ int main() {
     // generate random configuration
     else
     {
+        srand(time(0));
         double apoint[3];
         for (int i = 0; i < numpts; i++) {
             randptSphere(apoint, dim);
             for (int j = 0; j < dim; j++) {
                 X(i, j) = apoint[j];
-                cout << apoint[j] << endl;
             }
         }
     }
