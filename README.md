@@ -6,6 +6,9 @@ and can only work on 3d sphere so far.
 
 The program is compiled using cmake. If the system hasn't installed cmake, then the program may not be compiled in directory other than the clone. 
 
+
+The code was mainly completed with Alex Vlasiuk in 2016 summer.
+
 ## Algorithm
 The code is implemented mainly based on the L-BFGS algorithm implemented by PatWie from https://github.com/PatWie/CppNumericalSolvers.git.
 His implementation of the algorithm provides general line search and the l-bfgs solver class. We modify the solver and the line search 
