@@ -7,6 +7,7 @@
 #include "./linesearch/armijo.h"
 #include "./linesearch/morethuente.h"
 #include "./linesearch/wolfeheuristic.h"
+#include <string>
 
 #ifndef LBFGSSOLVER_H_
 #define LBFGSSOLVER_H_
