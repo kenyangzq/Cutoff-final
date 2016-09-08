@@ -4,8 +4,8 @@ sphere
 s = 2
 dim = 3
 c = 20
-file = 1
-numpts = 500
+file = 0
+numpts = 1000
 numits = 1000
 partitionnum = 10
 maxNbrs = 500

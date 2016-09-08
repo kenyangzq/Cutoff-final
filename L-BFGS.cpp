@@ -501,8 +501,11 @@ int main() {
     
     solver.minimize(f, V);
     
+    
     cout << "Energy now: " << f(V) << endl;
     cout << "Full energy now: " << Energy(V, s, dim-1) << endl;
+    
+    
     
     writeFile(outputfile, "output.txt", V, dim);
     return 0;

@@ -66,6 +66,9 @@ class LbfgsSolver : public ISolver<T, 1> {
     
     void minimize(Problem<T> &objFunc, Vector<T> & x0) {
         
+        printf("===============================\n");
+        printf("Minimization start: \n");
+        
         std::ofstream outputfile;
     
         const size_t DIM = x0.rows();
@@ -162,8 +165,12 @@ class LbfgsSolver : public ISolver<T, 1> {
             
             // update the scaling factor
             double dot =  static_cast<double>(y.dot(y));
-            if (dot <= 1e-7) {   
-                printf("Minimize complete.\n");
+            if (dot <= 1e-7) {
+                
+                printf("\nMinimize complete.\n");
+                printf("dot is %f\n",dot);
+                printf("Now the norm of gradient is: %f\n", grad.norm());
+                printf("===============================\n");
                 break;
             }else
                 H0k = y.dot(s) / dot;
