@@ -168,7 +168,7 @@ class LbfgsSolver : public ISolver<T, 1> {
             if (dot <= 1e-7) {
                 
                 printf("\nMinimize complete.\n");
-                printf("dot is %f\n",dot);
+                printf("Norm between two consecutive iterations is %f\n", s.norm());
                 printf("Now the norm of gradient is: %f\n", grad.norm());
                 printf("===============================\n");
                 break;

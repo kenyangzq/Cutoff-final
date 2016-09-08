@@ -5,6 +5,9 @@
 
 #include <Eigen/Dense>
 
+#if defined(MATLAB) || defined(NDEBUG)
+#define EXPECT_NEAR(x, y, z)
+#endif /* RELEASE MODE */
 
 #include "meta.h"
 
