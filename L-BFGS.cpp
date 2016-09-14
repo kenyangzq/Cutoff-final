@@ -1,5 +1,10 @@
 //
 //
+// TODO: dimension d
+
+
+
+
 #include <iomanip>
 #include <fstream>
 #include <Eigen/Dense>
@@ -103,37 +108,6 @@ void ComputeJacobian(const double & theta, const double & phi, cppoptlib::Matrix
 }
 
 
-void AngleGradient(const cppoptlib::Vector<double> & all_angles, const int & pt_index, const double & s_power, cppoptlib::Vector<double> & output)
-{
-    cppoptlib::Vector<double> temp_sum(3), temp_pt(3), temp_i(3), temp(3);
-    cppoptlib::Matrix<double> temp_jacobian(3,2);
-    temp_sum.setZero();
-    To3D(all_angles.segment<2>(pt_index*2), temp_pt);
-    for (int i=0; i<pt_index; ++i)
-    {
-        
-        To3D(all_angles.segment<2>(i*2), temp_i);
-        temp = temp_pt - temp_i;
-        temp_sum += pow(temp.dot(temp), -1-s_power/2.0) * temp;
-    }
-    for (int i=pt_index+1; i<all_angles.rows()/2; ++i)
-    {
-        To3D(all_angles.segment<2>(i*2), temp_i);
-        temp = temp_pt - temp_i;
-        temp_sum += pow(temp.dot(temp), -1-s_power/2.0) * temp;
-    }
-    temp_sum *= -s_power;
-    ComputeJacobian(all_angles(pt_index*2+0), all_angles(pt_index*2+1), temp_jacobian);
-    output.segment<2>(pt_index*2) = temp_sum * temp_jacobian;
-}
-
-void FullGradient(const cppoptlib::Vector<double> & all_angles, const double & s_power, cppoptlib::Vector<double> & output)
-{
-    for(int i=0; i<all_angles.size()/2; ++i)
-    {
-        AngleGradient(all_angles, i, s_power, output);
-    }
-}
 
 
 
