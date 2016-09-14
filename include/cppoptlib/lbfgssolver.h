@@ -53,7 +53,7 @@ class LbfgsSolver : public ISolver<T, 1> {
     
     size_t m = 1;
     
-    std::string filename = "config";
+//    std::string filename = "config";
     
     void setHistorySize(const size_t hs) { m = hs; }
     
@@ -61,7 +61,7 @@ class LbfgsSolver : public ISolver<T, 1> {
     
     void setNumIteration(const size_t i) { numIteration = i; }
     
-    void setFileName(const std::string fn) { filename = fn; }
+//    void setFileName(const std::string fn) { filename = fn; }
     
     
     void minimize(Problem<T> &objFunc, Vector<T> & x0) {
