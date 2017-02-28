@@ -33,4 +33,16 @@ Note: the outputs will be overwritten after each execution.
 ## Input file or random configuration
 In the control.inp file, there is an option of infile. 0 indicates no input file and 1 otherwise. When 0 is put, the inputfile should be exactly the inputfile name. When 1 is selected, the program will just ignore the inputfile line and generate a random configuration on 3d sphere.
 
+## Demonstration
+Image of 1000 random points on the sphere after optimization: 
+
+<img src="https://github.com/kenyangzq/RieszEnergyOptimization/blob/master/Image/1000min.png" width="300">
+
+A nice gif showing the Voronoi Diagram in optimization process for 1600 random points using BFGS algorithm: 
+
+<img src="https://github.com/kenyangzq/RieszEnergyOptimization/blob/master/Image/1600s2BFGS2.gif" width="400">
+
+Another gif for 3000 random points: 
+
+<img src="https://github.com/kenyangzq/RieszEnergyOptimization/blob/master/Image/3ks2.gif" width="400">
 
