@@ -7,9 +7,8 @@ and can only work on 3d sphere so far.
 The program is compiled using cmake. The code was mainly completed with Alex Vlasiuk in 2016 summer.
 
 ## Algorithm
-The code is implemented mainly based on the L-BFGS algorithm implemented by PatWie from https://github.com/PatWie/CppNumericalSolvers.git.
-His implementation of the algorithm provides general line search and the l-bfgs solver class. We modify the solver and the line search 
-based on our needs. Both classes are revised based on **Numerical Optimization** by Norcedal and Wright. In addition the solver class is 
+The code is implemented based on the L-BFGS algorithm implemented by PatWie from https://github.com/PatWie/CppNumericalSolvers.git.
+His implementation of the algorithm provides general line search and the l-bfgs solver class. We modified the solver and re-implemented the  line search method based on our needs. Both classes are revised based on **Numerical Optimization** by Norcedal and Wright. In addition, the solver class is 
  revised according to the stopping condition (convergence) in our case. We also added output functionality in the solver class.
 
 
